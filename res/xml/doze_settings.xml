@@ -37,6 +37,12 @@
         android:summary="@string/doze_on_charge_summary"
         android:icon="@drawable/ic_charging" />
 
+    <SwitchPreference
+        android:key="doze_on_charge"
+        android:title="@string/doze_on_charge_title"
+        android:summary="@string/doze_on_charge_summary"
+        android:defaultValue="false" />
+
     <PreferenceCategory
         android:key="tilt_sensor"
         android:title="@string/tilt_sensor_title" >
@@ -45,8 +51,7 @@
         android:key="pick_up"
         android:defaultValue="false"
         android:title="@string/pick_up_title"
-        android:summary="@string/pick_up_summary"
-        android:icon="@drawable/ic_pickup" />
+        android:summary="@string/pick_up_summary" />
 
     </PreferenceCategory>
 
