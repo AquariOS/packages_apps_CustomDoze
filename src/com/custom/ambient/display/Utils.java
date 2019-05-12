@@ -39,6 +39,7 @@ public final class Utils {
     protected static final String AMBIENT_DISPLAY_KEY = "ambient_display";
     protected static final String GESTURE_HAND_WAVE_KEY = "gesture_hand_wave";
     protected static final String GESTURE_POCKET_KEY = "gesture_pocket";
+    protected static final String DOZE_ON_CHARGE = "doze_on_charge";
 
     protected static void startService(Context context) {
         if (DEBUG) Log.d(TAG, "Starting service");
@@ -114,6 +115,11 @@ public final class Utils {
         return enabled;
     }
 
+    protected static boolean dozeOnChargeEnabled(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+                Settings.System.DOZE_ON_CHARGE, 0) != 0;
+    }
+
     protected static boolean enablePocketMode(boolean enable, Context context) {
         boolean enabled = Settings.System.putInt(context.getContentResolver(),
                 Settings.System.CUSTOM_AMBIENT_POCKETMODE_GESTURE, enable ? 1 : 0);
@@ -138,5 +144,12 @@ public final class Utils {
     protected static boolean sensorsEnabled(Context context) {
         return handwaveGestureEnabled(context)
                 || pocketGestureEnabled(context);
+    }
+
+    protected static boolean enableDozeOnCharge(boolean enable, Context context) {
+        boolean enabled = Settings.System.putInt(context.getContentResolver(),
+                Settings.System.DOZE_ON_CHARGE, enable ? 1 : 0);
+        manageService(context);
+        return enabled;
     }
 }

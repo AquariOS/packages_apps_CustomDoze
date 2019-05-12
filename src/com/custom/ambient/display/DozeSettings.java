@@ -64,6 +64,7 @@ public class DozeSettings extends PreferenceActivity implements PreferenceFragme
         private SwitchPreference mHandwavePreference;
         private SwitchPreference mPocketPreference;
         private Preference mBrightnessLevels;
+        private SwitchPreference mDozeOnChargePreference;
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -100,6 +101,11 @@ public class DozeSettings extends PreferenceActivity implements PreferenceFragme
             mPocketPreference.setChecked(Utils.pocketGestureEnabled(mContext));
             mPocketPreference.setOnPreferenceChangeListener(this);
 
+            mDozeOnChargePreference =
+                (SwitchPreference) findPreference(Utils.DOZE_ON_CHARGE);
+            mDozeOnChargePreference.setChecked(Utils.dozeOnChargeEnabled(mContext));
+            mDozeOnChargePreference.setOnPreferenceChangeListener(this);
+
             mBrightnessLevels = (Preference) findPreference("doze_brightness");
             if (mBrightnessLevels != null
                     && !mContext.getResources().getBoolean(
@@ -133,6 +139,10 @@ public class DozeSettings extends PreferenceActivity implements PreferenceFragme
                 mPocketPreference.setChecked(value);
                 Utils.enablePocketMode(value, mContext);
                 return true;
+            } else if (Utils.DOZE_ON_CHARGE.equals(key)) {
+                mDozeOnChargePreference.setChecked(value);
+                Utils.enableDozeOnCharge(value, mContext);
+                return true;
             }
             return false;
         }
@@ -142,6 +152,7 @@ public class DozeSettings extends PreferenceActivity implements PreferenceFragme
             mAmbientDisplayPreference.setEnabled(!aodEnabled);
             mHandwavePreference.setEnabled(!aodEnabled);
             mPocketPreference.setEnabled(!aodEnabled);
+            mDozeOnChargePreference.setEnabled(!aodEnabled);
         }
 
         @Override
